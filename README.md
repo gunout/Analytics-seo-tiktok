@@ -303,5 +303,14 @@ TikTok IA Analytics - Analyses avancées &amp; Insights IA pour optimiser votre 
 
 ---
 
+<div align="center">
 
-By Gleaphe 2026 . 
+**🇷🇪 Fait avec ❤️ pour La Réunion 🇷🇪**
+
+[⬆ Retour en haut](#-reunion-monitor--dashboard-des-travaux-numériques-réunion)
+
+### Gunout · 2026
+
+© 2026 **Gunout** — Tous droits réservés.
+
+</div>
