@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Analytics Pro | Single Page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tt-black:#000000;
+    --tt-dark:#121212;
+    --tt-dark-2:#1a1a1a;
+    --tt-card:#161823;
+    --tt-cyan:#25F4EE;
+    --tt-pink:#FE2C55;
+    --tt-pink-hover:#ff4069;
+    --tt-white:#FFFFFF;
+    --tt-gray:#8a8b91;
+    --tt-gray-light:#c7c8ca;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  body{
+    background:
+      radial-gradient(circle at 15% 0%, rgba(37,244,238,0.10) 0%, transparent 40%),
+      radial-gradient(circle at 85% 100%, rgba(254,44,85,0.12) 0%, transparent 45%),
+      var(--tt-black);
+    font-family:'Inter',sans-serif;
+    color:var(--tt-white);
+    padding:2rem 1.5rem;
+    min-height:100vh;
+  }
+
+  .container{max-width:1400px;margin:0 auto}
+
+  /* ---------- HEADER ---------- */
+  .header{text-align:center;margin-bottom:2.5rem}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:.6rem;
+    background:rgba(37,244,238,.08);
+    padding:.5rem 1.2rem;
+    border-radius:100px;
+    border:1px solid rgba(37,244,238,.45);
+    margin-bottom:1.4rem;
+    font-size:.85rem;font-weight:500;
+    color:var(--tt-cyan);
+    box-shadow:0 0 22px rgba(37,244,238,.25), inset 0 0 12px rgba(37,244,238,.08);
+    animation:pulseGlow 3s ease-in-out infinite;
+  }
+  @keyframes pulseGlow{
+    0%,100%{box-shadow:0 0 22px rgba(37,244,238,.25), inset 0 0 12px rgba(37,244,238,.08)}
+    50%{box-shadow:0 0 32px rgba(37,244,238,.45), inset 0 0 16px rgba(37,244,238,.15)}
+  }
+  .badge i{color:var(--tt-cyan)}
+
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:3rem;
+    font-weight:700;
+    letter-spacing:-.03em;
+    line-height:1.1;
+    background:linear-gradient(92deg, var(--tt-cyan) 0%, #ffffff 45%, var(--tt-pink) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 60px rgba(254,44,85,.15);
+  }
+  h1 .reg{
+    font-size:1.2rem;
+    vertical-align:super;
+    -webkit-text-fill-color:var(--tt-pink);
+    color:var(--tt-pink);
+  }
+
+  .sub{
+    color:var(--tt-gray-light);
+    margin-top:.9rem;
+    font-size:1.05rem;
+    letter-spacing:.01em;
+  }
+
+  /* ---------- SEARCH PANEL ---------- */
+  .search-panel{
+    background:linear-gradient(135deg, rgba(22,24,35,.9), rgba(18,18,18,.9));
+    border-radius:2rem;
+    border:1px solid rgba(254,44,85,.18);
+    padding:1.2rem 1.8rem;
+    margin-bottom:2.5rem;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;
+    box-shadow:0 20px 60px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.03);
+    position:relative;
+    overflow:hidden;
+  }
+  .search-panel::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg, transparent, var(--tt-cyan), var(--tt-pink), transparent);
+    opacity:.7;
+  }
+
+  .input-group{flex:3;min-width:240px;position:relative}
+  .input-group i{
+    position:absolute;left:18px;top:50%;transform:translateY(-50%);
+    color:var(--tt-cyan);font-size:1.3rem;
+    filter:drop-shadow(0 0 6px rgba(37,244,238,.6));
+  }
+
+  input{
+    width:100%;
+    background:var(--tt-black);
+    border:1.5px solid rgba(255,255,255,.12);
+    padding:1rem 1rem 1rem 3.2rem;
+    border-radius:2rem;
+    font-size:1rem;
+    color:var(--tt-white);
+    outline:none;
+    transition:all .25s;
+    font-family:'Inter',sans-serif;
+  }
+  input::placeholder{color:#5a5b63}
+  input:focus{
+    border-color:var(--tt-cyan);
+    box-shadow:0 0 0 3px rgba(37,244,238,.15), 0 0 25px rgba(37,244,238,.25);
+  }
+
+  button{
+    background:linear-gradient(95deg, var(--tt-pink), #d81f45);
+    border:none;
+    padding:.95rem 2rem;
+    border-radius:2rem;
+    font-weight:700;
+    font-size:1rem;
+    color:var(--tt-white);
+    display:inline-flex;align-items:center;gap:12px;
+    cursor:pointer;
+    transition:all .2s;
+    font-family:'Inter',sans-serif;
+    letter-spacing:.02em;
+    box-shadow:0 8px 24px rgba(254,44,85,.35), inset 0 1px 0 rgba(255,255,255,.15);
+    position:relative;
+    overflow:hidden;
+  }
+  button::after{
+    content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+    transition:left .5s;
+  }
+  button:hover{
+    transform:translateY(-2px);
+    background:linear-gradient(95deg, var(--tt-pink-hover), #e62a52);
+    box-shadow:0 12px 32px rgba(254,44,85,.55), inset 0 1px 0 rgba(255,255,255,.2);
+  }
+  button:hover::after{left:100%}
+  button:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+  /* ---------- DASHBOARD ---------- */
+  .dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:1.8rem;
+    margin-top:1rem;
+  }
+
+  .card{
+    background:linear-gradient(160deg, var(--tt-card) 0%, #0d0e16 100%);
+    border-radius:1.8rem;
+    border:1px solid rgba(255,255,255,.06);
+    padding:1.6rem 1.7rem;
+    position:relative;
+    overflow:hidden;
+    transition:transform .25s, border-color .25s, box-shadow .25s;
+    box-shadow:0 10px 40px rgba(0,0,0,.5);
+  }
+  .card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg, transparent, rgba(37,244,238,.6), rgba(254,44,85,.6), transparent);
+    opacity:.6;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(37,244,238,.25);
+    box-shadow:0 18px 50px rgba(0,0,0,.7), 0 0 40px rgba(254,44,85,.08);
+  }
+
+  .card-header{
+    display:flex;align-items:center;gap:.8rem;
+    border-bottom:1px dashed rgba(37,244,238,.25);
+    padding-bottom:1rem;margin-bottom:1.4rem;
+  }
+  .card-header i{
+    font-size:1.7rem;
+    color:var(--tt-cyan);
+    filter:drop-shadow(0 0 8px rgba(37,244,238,.55));
+  }
+  .card-header h3{
+    font-weight:700;
+    font-size:1.25rem;
+    letter-spacing:-.01em;
+    color:var(--tt-white);
+  }
+
+  .metric{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:1rem;
+    gap:.8rem;
+  }
+  .metric-label{color:var(--tt-gray-light);font-size:.9rem;display:flex;align-items:center;gap:.5rem}
+  .metric-label i{color:var(--tt-pink);font-size:.85rem}
+  .metric-value{
+    font-weight:700;font-size:1.15rem;
+    color:var(--tt-white);
+    text-align:right;
+    word-break:break-word;
+  }
+
+  .progress-bar{
+    background:rgba(255,255,255,.06);
+    border-radius:40px;height:9px;overflow:hidden;
+    margin:.6rem 0 1.1rem;
+    position:relative;
+  }
+  .progress-fill{
+    background:linear-gradient(90deg, var(--tt-cyan), var(--tt-pink));
+    width:0%;height:100%;border-radius:40px;
+    transition:width 1s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 0 12px rgba(254,44,85,.5);
+  }
+
+  .score-circle{
+    display:inline-flex;align-items:center;justify-content:center;
+    font-weight:900;font-size:2.1rem;
+    background:linear-gradient(135deg, rgba(37,244,238,.12), rgba(254,44,85,.12));
+    border:2px solid transparent;
+    background-clip:padding-box;
+    border-radius:60px;
+    padding:.5rem 1.4rem;
+    color:var(--tt-white);
+    position:relative;
+    letter-spacing:-.02em;
+  }
+  .score-circle::before{
+    content:'';position:absolute;inset:-2px;border-radius:60px;padding:2px;
+    background:linear-gradient(135deg, var(--tt-cyan), var(--tt-pink));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+            mask-composite:exclude;
+    pointer-events:none;
+  }
+
+  .tag-cloud{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+  .tag{
+    background:rgba(37,244,238,.08);
+    padding:.35rem 1rem;
+    border-radius:30px;
+    font-size:.78rem;
+    font-weight:600;
+    color:var(--tt-cyan);
+    border:1px solid rgba(37,244,238,.25);
+    transition:all .2s;
+  }
+  .tag:hover{
+    background:rgba(37,244,238,.18);
+    box-shadow:0 0 15px rgba(37,244,238,.35);
+    transform:translateY(-1px);
+  }
+  .tag.pink{
+    background:rgba(254,44,85,.08);
+    color:#ff7a95;
+    border-color:rgba(254,44,85,.3);
+  }
+  .tag.pink:hover{
+    background:rgba(254,44,85,.18);
+    box-shadow:0 0 15px rgba(254,44,85,.35);
+  }
+
+  /* ---------- LOADER ---------- */
+  .loader{display:flex;justify-content:center;padding:3rem}
+  .spinner{
+    width:56px;height:56px;
+    border:3px solid rgba(255,255,255,.08);
+    border-top-color:var(--tt-cyan);
+    border-right-color:var(--tt-pink);
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    box-shadow:0 0 25px rgba(37,244,238,.3);
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---------- MESSAGES ---------- */
+  .error-message{
+    background:linear-gradient(135deg, rgba(254,44,85,.15), rgba(254,44,85,.05));
+    color:#ffb3c1;
+    padding:1.2rem;
+    border-radius:1.5rem;
+    text-align:center;
+    border:1px solid rgba(254,44,85,.45);
+    box-shadow:0 0 30px rgba(254,44,85,.15);
+  }
+  .error-message i{color:var(--tt-pink);margin-right:.4rem}
+
+  .success-badge{
+    background:linear-gradient(95deg, rgba(37,244,238,.15), rgba(254,44,85,.15));
+    color:var(--tt-white);
+    padding:.4rem 1.2rem;
+    border-radius:20px;
+    font-size:.82rem;
+    font-weight:600;
+    display:inline-block;
+    margin-bottom:1.2rem;
+    border:1px solid rgba(37,244,238,.35);
+    box-shadow:0 0 20px rgba(37,244,238,.2);
+  }
+  .success-badge i{color:var(--tt-cyan)}
+
+  /* ---------- AVATAR ---------- */
+  .avatar{
+    width:90px;height:90px;border-radius:50%;
+    object-fit:cover;display:block;margin:0 auto 1.2rem;
+    border:3px solid transparent;
+    background:
+      linear-gradient(var(--tt-card),var(--tt-card)) padding-box,
+      linear-gradient(135deg,var(--tt-cyan),var(--tt-pink)) border-box;
+    box-shadow:0 0 30px rgba(37,244,238,.3), 0 0 40px rgba(254,44,85,.15);
+  }
+
+  /* ---------- BIO BOX ---------- */
+  .bio-box{
+    margin-top:1rem;
+    background:rgba(0,0,0,.5);
+    border-radius:.9rem;
+    padding:.9rem 1rem;
+    border-left:3px solid var(--tt-cyan);
+    font-size:.9rem;
+    color:var(--tt-gray-light);
+    line-height:1.5;
+  }
+  .bio-box i{color:var(--tt-cyan);margin-right:.4rem}
+
+  /* ---------- TIP BOX ---------- */
+  .tip-box{
+    background:linear-gradient(135deg, rgba(37,244,238,.08), rgba(254,44,85,.08));
+    border-radius:1rem;
+    padding:.85rem 1rem;
+    font-size:.9rem;
+    border:1px solid rgba(37,244,238,.2);
+    color:var(--tt-gray-light);
+  }
+  .tip-box i{color:#FFD93D;margin-right:.4rem}
+
+  /* ---------- FOOTER NOTE ---------- */
+  .footer-note{
+    text-align:center;
+    font-size:.78rem;
+    margin-top:2.5rem;
+    color:var(--tt-gray);
+    border-top:1px solid rgba(255,255,255,.06);
+    padding-top:1.8rem;
+    letter-spacing:.02em;
+  }
+  .footer-note i{color:var(--tt-cyan);margin:0 .3rem}
+
+  /* ---------- STATS FOOTER BAR ---------- */
+  .stats-bar{
+    margin-top:1rem;
+    background:rgba(0,0,0,.55);
+    border-radius:1.2rem;
+    padding:.9rem 1.2rem;
+    border:1px solid rgba(37,244,238,.15);
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;
+    font-size:.85rem;
+    color:var(--tt-gray-light);
+  }
+  .stats-bar i{color:var(--tt-pink);margin-right:.4rem}
+
+  /* ---------- ACTION LIST ---------- */
+  .action-list{list-style:none;padding:0}
+  .action-list li{
+    margin-bottom:.9rem;
+    display:flex;gap:12px;
+    align-items:flex-start;
+    color:var(--tt-gray-light);
+    font-size:.92rem;
+    line-height:1.45;
+  }
+  .action-list li i{
+    color:var(--tt-cyan);
+    margin-top:.15rem;
+    filter:drop-shadow(0 0 5px rgba(37,244,238,.6));
+    flex-shrink:0;
+  }
+
+  /* ---------- MEDIA QUERIES ---------- */
+  @media(max-width:680px){
+    body{padding:1rem}
+    h1{font-size:2rem}
+    .sub{font-size:.9rem}
+    .search-panel{padding:1rem;border-radius:1.5rem}
+    .card{padding:1.3rem 1.2rem;border-radius:1.4rem}
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="badge">
+      <i class="fas fa-database"></i>
+      <span>DONNÉES TIKTOK · SINGLE PAGE</span>
+    </div>
+    <h1>TikTok Scope<span class="reg">®</span> Real</h1>
+    <div class="sub">Audit SEO &amp; engagement — zéro backend requis</div>
+  </div>
+
+  <div class="search-panel">
+    <div class="input-group">
+      <i class="fab fa-tiktok"></i>
+      <input type="text" id="tiktokUserInput" placeholder="@username TikTok ex: @khaby.lame">
+    </div>
+    <button id="analyzeBtn">
+      <i class="fas fa-microchip"></i> Analyser
+    </button>
+  </div>
+
+  <div id="resultsArea">
+    <div class="loader" id="loaderPlaceholder" style="display:none">
+      <div class="spinner"></div>
+    </div>
+    <div id="analyticsDashboard"></div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-chart-line"></i> Données via oEmbed TikTok public
+    <i class="fas fa-circle" style="font-size:.35rem;vertical-align:middle;color:var(--tt-pink)"></i>
+    <i class="fas fa-shield-alt"></i> Aucune clé API requise
+  </div>
+
+</div>
+
+<script>
+/* =========================================================
+   CONFIG
+   ========================================================= */
+const OEMBED_URL = 'https://www.tiktok.com/oembed?url=';
+
+/* =========================================================
+   UTILS
+   ========================================================= */
+function extractUsername(input){
+  if(!input) return null;
+  const clean = input.trim();
+  const urlMatch = clean.match(/tiktok\.com\/@([a-zA-Z0-9_.]+)/i);
+  if(urlMatch) return urlMatch[1];
+  const atMatch = clean.match(/^@?([a-zA-Z0-9_.]{2,30})$/);
+  return atMatch ? atMatch[1] : null;
+}
+
+/* =========================================================
+   FETCH oEmbed TikTok (CORS autorisé)
+   ========================================================= */
+async function fetchTikTokOEmbed(username){
+  const url = OEMBED_URL + encodeURIComponent('https://www.tiktok.com/@' + username);
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('Utilisateur introuvable ou TikTok a bloqué la requête (HTTP ' + res.status + ')');
+  return await res.json();
+}
+
+/* =========================================================
+   CALCUL DES SCORES (heuristiques locales)
+   ========================================================= */
+function computeScores(info){
+  const authorName = info.author_name || '';
+  const title = info.title || '';
+  const authorUrl = info.author_url || '';
+  const thumb = info.thumbnail_url || '';
+
+  let seo = 35;
+  if(authorName.length > 3) seo += 10;
+  if(title.length > 40) seo += 15; else if(title.length > 15) seo += 8;
+  if(info.provider_name === 'TikTok') seo += 10;
+  if(thumb && thumb.startsWith('http')) seo += 5;
+  if(authorUrl.includes('/@')) seo += 5;
+  seo = Math.min(95, seo);
+
+  const bioOptimization = Math.min(90, 25 + Math.min(title.length, 80));
+
+  const accountStrength =
+    seo > 75 ? 'Très fort' :
+    seo > 55 ? 'Moyen' :
+    'À optimiser';
+
+  return { seo, bioOptimization, accountStrength };
+}
+
+/* =========================================================
+   RENDU DU DASHBOARD
+   ========================================================= */
+function renderDashboard(info, username){
+  const { seo, bioOptimization, accountStrength } = computeScores(info);
+  const bioText = info.title || info.author_name || 'Aucune bio disponible';
+  const hashtags = ['#fyp','#viral','#tiktok','#pourtoi','#'+username];
+  const keywords = ['tiktok','engagement','viral content','growth','seo'];
+  const engagementHint = seo > 70 ? '🔥 Élevé' : seo > 50 ? '📊 Moyen' : '⚠️ À améliorer';
+
+  return `
+    <div style="text-align:center">
+      <span class="success-badge">
+        <i class="fas fa-check-circle"></i> Données récupérées via oEmbed TikTok
+      </span>
+    </div>
+
+    <div class="dashboard">
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fab fa-tiktok"></i>
+          <h3>@${username}</h3>
+        </div>
+        ${info.thumbnail_url
+          ? `<img src="${info.thumbnail_url}" class="avatar" alt="avatar" onerror="this.style.display='none'">`
+          : ''}
+        <div class="metric">
+          <span class="metric-label"><i class="fas fa-user"></i> Nom affiché</span>
+          <span class="metric-value">${info.author_name || username}</span>
+        </div>
+        <div class="metric">
+          <span class="metric-label"><i class="fas fa-link"></i> Profil</span>
+          <span class="metric-value">
+            <a href="${info.author_url}" target="_blank"
+               style="color:var(--tt-cyan);text-decoration:none;font-weight:600">
+              Ouvrir <i class="fas fa-external-link-alt"></i>
+            </a>
+          </span>
+        </div>
+        <div class="metric">
+          <span class="metric-label"><i class="fas fa-shield"></i> Force du compte</span>
+          <span class="metric-value">${accountStrength}</span>
+        </div>
+        <hr style="border:none;border-top:1px dashed rgba(37,244,238,.2);margin:14px 0">
+        <div class="metric">
+          <span class="metric-label"><i class="fas fa-server"></i> Source</span>
+          <span class="metric-value">${info.provider_name || 'TikTok'}</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-chart-line"></i>
+          <h3>SEO PowerScore™</h3>
+        </div>
+        <div style="text-align:center;margin:.5rem 0 1.2rem">
+          <span class="score-circle">${seo}/100</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${seo}%"></div>
+        </div>
+        <div class="metric" style="margin-top:1rem">
+          <span class="metric-label"><i class="fas fa-tag"></i> Optimisation Bio</span>
+          <span class="metric-value">${Math.round(bioOptimization)}%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${bioOptimization}%;background:linear-gradient(90deg,var(--tt-pink),var(--tt-cyan))"></div>
+        </div>
+        <div class="tag-cloud">
+          ${hashtags.map(t => `<span class="tag">${t}</span>`).join('')}
+        </div>
+        <div class="bio-box">
+          <i class="fas fa-quote-left"></i> ${bioText}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-key"></i>
+          <h3>Keywords &amp; Stratégie</h3>
+        </div>
+        <div style="margin:1rem 0 .6rem;font-weight:600;color:var(--tt-gray-light);font-size:.9rem">
+          <i class="fas fa-bullseye" style="color:var(--tt-pink);margin-right:.4rem"></i>
+          Mots-clés prioritaires
+        </div>
+        <div class="tag-cloud">
+          ${keywords.map(k => `<span class="tag pink"><i class="fas fa-hashtag"></i> ${k}</span>`).join('')}
+        </div>
+        <div class="metric" style="margin-top:1.4rem">
+          <span class="metric-label"><i class="fas fa-fire"></i> Potentiel viral</span>
+          <span class="metric-value">${engagementHint}</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-list-check"></i>
+          <h3>Plan d'action SEO</h3>
+        </div>
+        <ul class="action-list">
+          <li>
+            <i class="fas fa-chevron-circle-right"></i>
+            <span>${bioText.length < 80
+              ? '📝 Allongez votre bio ('+bioText.length+' caractères)'
+              : '✅ Bio bien dimensionnée'}</span>
+          </li>
+          <li>
+            <i class="fas fa-chevron-circle-right"></i>
+            <span>🎬 Publiez régulièrement (min. 3x/semaine)</span>
+          </li>
+          <li>
+            <i class="fas fa-chevron-circle-right"></i>
+            <span>💬 Interagissez avec votre communauté</span>
+          </li>
+          <li>
+            <i class="fas fa-chevron-circle-right"></i>
+            <span>🎵 Utilisez les sons tendance du moment</span>
+          </li>
+        </ul>
+        <div class="tip-box">
+          <i class="fas fa-lightbulb"></i>
+          <strong>Astuce :</strong> Publiez entre 18h et 21h pour maximiser l'engagement.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="stats-bar">
+      <span><i class="fas fa-chart-pie"></i> Score SEO : <strong style="color:var(--tt-cyan)">${seo}/100</strong> · @${username}</span>
+      <span><i class="fas fa-bolt"></i> Analyse oEmbed TikTok LIVE</span>
+    </div>
+  `;
+}
+
+/* =========================================================
+   ÉVÉNEMENTS
+   ========================================================= */
+document.getElementById('analyzeBtn').addEventListener('click', async () => {
+  const raw = document.getElementById('tiktokUserInput').value;
+  const dashboardDiv = document.getElementById('analyticsDashboard');
+  const loaderDiv = document.getElementById('loaderPlaceholder');
+  const btn = document.getElementById('analyzeBtn');
+
+  if(!raw.trim()){
+    dashboardDiv.innerHTML = `<div class="error-message">
+      <i class="fas fa-info-circle"></i> Veuillez entrer un nom d'utilisateur TikTok.
+    </div>`;
+    return;
+  }
+
+  const username = extractUsername(raw);
+  if(!username){
+    dashboardDiv.innerHTML = `<div class="error-message">
+      <i class="fas fa-exclamation-triangle"></i> Nom d'utilisateur invalide. Format : @khaby.lame
+    </div>`;
+    return;
+  }
+
+  loaderDiv.style.display = 'flex';
+  dashboardDiv.innerHTML = '';
+  btn.disabled = true;
+
+  try{
+    const info = await fetchTikTokOEmbed(username);
+    loaderDiv.style.display = 'none';
+    dashboardDiv.innerHTML = renderDashboard(info, username);
+  }catch(err){
+    loaderDiv.style.display = 'none';
+    dashboardDiv.innerHTML = `
+      <div class="error-message">
+        <i class="fas fa-exclamation-triangle"></i> ${err.message}
+        <br><small>Vérifiez le nom d'utilisateur. Certains comptes privés ne sont pas accessibles via oEmbed.</small>
+      </div>`;
+  }finally{
+    btn.disabled = false;
+  }
+});
+
+/* =========================================================
+   DÉMARRAGE
+   ========================================================= */
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('tiktokUserInput').value = '@khaby.lame';
+  document.getElementById('analyticsDashboard').innerHTML = `
+    <div style="text-align:center;background:linear-gradient(135deg,rgba(37,244,238,.05),rgba(254,44,85,.05));
+                border:1px solid rgba(37,244,238,.2);border-radius:2rem;padding:2.5rem 1.5rem;
+                box-shadow:0 0 40px rgba(37,244,238,.08) inset">
+      <i class="fab fa-tiktok" style="font-size:2.6rem;color:var(--tt-cyan);
+         filter:drop-shadow(0 0 15px rgba(37,244,238,.6))"></i>
+      <p style="margin-top:1rem;font-weight:600;font-size:1.05rem">
+        📊 Analyse TikTok — Single Page
+      </p>
+      <p style="margin-top:.4rem;color:var(--tt-gray-light);font-size:.92rem">
+        Entrez @username et cliquez sur <strong style="color:var(--tt-pink)">Analyser</strong>
+      </p>
+      <p style="font-size:.8rem;margin-top:1.2rem;color:var(--tt-gray)">
+        💡 Aucun serveur requis — appel direct à l'API oEmbed TikTok
+      </p>
+    </div>`;
+});
+</script>
+</body>
+</html>
